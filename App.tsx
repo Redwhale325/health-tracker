@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text } from 'react-native';
+import HomeScreen from './src/screens/HomeScreen';
+import LogScreen from './src/screens/LogScreen';
+import HistoryScreen from './src/screens/HistoryScreen';
+import GoalsScreen from './src/screens/GoalsScreen';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: '#2196F3',
+          tabBarInactiveTintColor: '#aaa',
+          tabBarStyle: { paddingBottom: 8, height: 60 },
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeScreen}
+          options={{ tabBarIcon: () => <Text style={{ fontSize: 20 }}>🏠</Text>, tabBarLabel: 'Today' }} />
+        <Tab.Screen name="Log" component={LogScreen}
+          options={{ tabBarIcon: () => <Text style={{ fontSize: 20 }}>✏️</Text>, tabBarLabel: 'Log' }} />
+        <Tab.Screen name="History" component={HistoryScreen}
+          options={{ tabBarIcon: () => <Text style={{ fontSize: 20 }}>📅</Text>, tabBarLabel: 'History' }} />
+        <Tab.Screen name="Goals" component={GoalsScreen}
+          options={{ tabBarIcon: () => <Text style={{ fontSize: 20 }}>🎯</Text>, tabBarLabel: 'Goals' }} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
